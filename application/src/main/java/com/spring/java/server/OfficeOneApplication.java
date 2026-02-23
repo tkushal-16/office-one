@@ -1,16 +1,12 @@
 package com.spring.java.server;
 
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-/**
- * Hello world!
- *
- */
+
 @SpringBootApplication
-public class OfficeOneApplication
-{
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
+public class OfficeOneApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(OfficeOneApplication.class, args);
     }
 }
