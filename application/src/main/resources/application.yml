@@ -1,12 +1,35 @@
-  spring:
-    datasource:
-      url: jdbc:postgresql://localhost:5432/office_one
-      username: postgres
-      password: postgres
-    jpa:
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/office_one
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
       hibernate:
-        ddl-auto: update
-      show-sql: true
-      properties:
-        hibernate:
-          format_sql: true
+        format_sql: true
+
+  jackson:
+    time-zone: Asia/Kolkata
+
+  main:
+    allow-circular-references: false
+
+app:
+  jwt:
+    secret: ${JWT_SECRET}
+    access-token-expiration-minutes: 120
+    refresh-token-expiration-days: 1
+    rotate-refresh-tokens: true
+    blacklist-after-rotation: true
+    header-prefix: Bearer
+
+  encryption:
+    field-key: ${FIELD_ENCRYPTION_KEY}
+
+#cors:
+#  allowed-origins:
+#    - http://localhost:3000
+#    - http://127.0.0.1:3000
