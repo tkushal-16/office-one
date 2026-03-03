@@ -1,4 +1,79 @@
 package com.spring.java.dao.model.sql;
 
-public class UserEntity {
+import com.spring.java.common.user.UserRole;
+import jakarta.persistence.*;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
+
+@Entity
+@Table(name = "user_account")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class UserEntity implements UserDetails {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String firstName;
+
+    private String lastName;
+
+    @Column(unique = true, nullable = false)
+    private String email;
+
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
+
+    private boolean isActive = true;
+
+    private boolean isStaff = false;
+
+    private boolean isSuperuser = false;
+
+    private LocalDateTime dateJoined = LocalDateTime.now();
+
+    private String designation = "Software Engineer";
+
+    private String team = "Backend";
+
+    private String password;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private UserProfileEntity profile;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private UserStatusEntity status;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(() -> "ROLE_" + role.name());
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() { return true; }
+
+    @Override
+    public boolean isAccountNonLocked() { return true; }
+
+    @Override
+    public boolean isCredentialsNonExpired() { return true; }
+
+    @Override
+    public boolean isEnabled() {
+        return isActive;
+    }
 }
