@@ -1,4 +1,4 @@
-package com.spring.java.server.dto;
+package com.spring.java.server.dto.user;
 
 import lombok.Builder;
 import lombok.Data;
