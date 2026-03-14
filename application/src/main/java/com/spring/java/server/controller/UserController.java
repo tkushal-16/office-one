@@ -1,12 +1,11 @@
 package com.spring.java.server.controller;
 
 import com.spring.java.common.user.User;
-import com.spring.java.common.user.UserStatus;
 import com.spring.java.dao.user.UserProfileRepository;
 import com.spring.java.dao.user.UserRepository;
 import com.spring.java.dao.user.UserStatusRepository;
-import com.spring.java.server.dto.UserResponseDto;
-import com.spring.java.server.dto.UserStatusResponse;
+import com.spring.java.server.dto.user.UserResponseDto;
+import com.spring.java.server.dto.user.UserStatusResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -14,8 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/api")

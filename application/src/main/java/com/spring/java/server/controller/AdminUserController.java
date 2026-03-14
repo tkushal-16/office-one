@@ -2,9 +2,9 @@ package com.spring.java.server.controller;
 
 import com.spring.java.common.user.User;
 import com.spring.java.common.user.UserRole;
-import com.spring.java.server.dto.AdminUserRegistrationRequest;
-import com.spring.java.server.dto.UserResponseDto;
-import com.spring.java.server.dto.UserStatusResponse;
+import com.spring.java.server.dto.user.AdminUserRegistrationRequest;
+import com.spring.java.server.dto.user.UserResponseDto;
+import com.spring.java.server.dto.user.UserStatusResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/admin")
