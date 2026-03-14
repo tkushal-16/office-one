@@ -3,9 +3,11 @@ package com.spring.java.server.service.attendance;
 import com.spring.java.common.user.User;
 import com.spring.java.dao.attendance.UserAttendanceRepository;
 import com.spring.java.dao.attendance.UserInactiveTimeRepository;
+import com.spring.java.dao.leave.UserLeaveRequestRepository;
 import com.spring.java.dao.model.sql.UserAttendanceEntity;
 import com.spring.java.dao.model.sql.UserEntity;
 import com.spring.java.dao.model.sql.UserInactiveTimeEntity;
+import com.spring.java.dao.model.sql.UserLeaveRequestEntity;
 import com.spring.java.dao.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +24,7 @@ public class AttendanceService {
     private final UserRepository userRepository;
     private final UserAttendanceRepository attendanceRepository;
     private final UserInactiveTimeRepository inactiveRepository;
+    private final UserLeaveRequestRepository userLeaveRequestRepository;
 
     /**
      * CHECK IN
@@ -201,5 +205,59 @@ public class AttendanceService {
                 //"records", attendanceList.size()
         );
     }
+
+    //This is the optimized way of querying to getAttendanceSummary
+    /*
+    public List<AttendanceSummaryDTO> getAttendanceSummary(
+            List<User> users,
+            LocalDate targetDate
+    ) {
+
+        List<Long> userIds = users.stream()
+                .map(User::getId)
+                .toList();
+
+        List<UserAttendanceEntity> attendances =
+                attendanceRepository.findAttendanceForUsers(userIds, targetDate);
+
+        List<UserLeaveRequestEntity> leaves =
+                userLeaveRequestRepository.findApprovedLeaves(userIds, targetDate);
+
+        Map<Long, UserAttendanceEntity> attendanceMap =
+                attendances.stream()
+                        .collect(Collectors.toMap(
+                                a -> a.getUser().getId(),
+                                a -> a
+                        ));
+
+        Set<Long> leaveUsers =
+                leaves.stream()
+                        .map(l -> l.getUser().getId())
+                        .collect(Collectors.toSet());
+
+        List<AttendanceSummaryDTO> response = new ArrayList<>();
+
+        for (User user : users) {
+
+            UserAttendanceEntity attendance =
+                    attendanceMap.get(user.getId());
+
+            if (attendance != null) {
+
+                response.add(mapAttendance(attendance));
+
+            } else if (leaveUsers.contains(user.getId())) {
+
+                response.add(createLeaveResponse(user));
+
+            } else {
+
+                response.add(createAbsentResponse(user));
+            }
+        }
+
+        return response;
+    }
+    */
 
 }

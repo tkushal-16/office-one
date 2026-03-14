@@ -25,4 +25,17 @@ public interface UserLeaveRequestRepository
            AND l.endDate >= :targetDate
            """)
     Optional<UserLeaveRequestEntity> findApprovedLeaveForDate(User user, LocalDate targetDate);
+
+    @Query("""
+        SELECT l
+        FROM UserLeaveRequest l
+        WHERE l.user.id IN :userIds
+        AND l.leaveStatus = 'APPROVED'
+        AND l.startDate <= :targetDate
+        AND l.endDate >= :targetDate
+        """)
+    List<UserLeaveRequestEntity> findApprovedLeaves(
+            List<Long> userIds,
+            LocalDate targetDate
+    );
 }
