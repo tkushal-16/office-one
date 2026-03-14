@@ -29,7 +29,7 @@ public class UserAttendanceEntity {
     // Foreign key to User
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private UserEntity user;
 
     @Column(nullable = false)
     private LocalDate date;
