@@ -3,6 +3,7 @@ package com.spring.java.server.controller;
 import com.spring.java.common.user.User;
 import com.spring.java.server.dto.leave.UserLeaveRequestDTO;
 import com.spring.java.server.dto.leave.UserLeaveResponseDTO;
+import com.spring.java.server.service.leave.LeaveService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
