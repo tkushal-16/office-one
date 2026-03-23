@@ -27,7 +27,7 @@ public class UserLeaveRequestEntity {
     // FK to user
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private UserEntity user;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "leave_type", nullable = false)

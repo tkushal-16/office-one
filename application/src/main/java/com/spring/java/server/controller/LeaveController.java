@@ -1,6 +1,7 @@
 package com.spring.java.server.controller;
 
 import com.spring.java.common.user.User;
+import com.spring.java.dao.model.sql.UserEntity;
 import com.spring.java.server.dto.leave.UserLeaveRequestDTO;
 import com.spring.java.server.dto.leave.UserLeaveResponseDTO;
 import com.spring.java.server.service.leave.LeaveService;
@@ -20,7 +21,7 @@ public class LeaveController {
     // Apply Leave
     @PostMapping("/apply")
     public UserLeaveResponseDTO applyLeave(
-            @AuthenticationPrincipal User user,
+            @AuthenticationPrincipal UserEntity user,
             @RequestBody UserLeaveRequestDTO requestDTO
     ) {
         return leaveService.applyLeave(user, requestDTO);
@@ -47,7 +48,7 @@ public class LeaveController {
     // Approve / Decline
     @PostMapping("/approve-decline/{id}")
     public String approveDeclineLeave(
-            @AuthenticationPrincipal User approver,
+            @AuthenticationPrincipal UserEntity approver,
             @PathVariable Long id,
             @RequestParam String action
     ) {
