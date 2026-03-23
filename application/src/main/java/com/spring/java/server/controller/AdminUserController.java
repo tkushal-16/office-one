@@ -8,6 +8,8 @@ import com.spring.java.server.dto.user.UserStatusResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,7 +27,6 @@ public class AdminUserController {
 //    private final UserRepository userRepository;
 //    private final UserProfileRepository profileRepository;
 //    private final UserStatusRepository statusRepository;
-    private final PasswordEncoder passwordEncoder;
 
     // Equivalent to AdminUserRegistrationView
     @PostMapping("/register")

@@ -10,6 +10,7 @@ import com.spring.java.dao.model.sql.UserInactiveTimeEntity;
 import com.spring.java.dao.model.sql.UserLeaveRequestEntity;
 import com.spring.java.dao.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;

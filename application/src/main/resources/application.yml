@@ -19,17 +19,16 @@ spring:
 
 app:
   jwt:
-    secret: ${JWT_SECRET}
+    secret: ${JWT_SECRET:my-temporary-dev-secret-key-at-least-32-chars}
     access-token-expiration-minutes: 120
     refresh-token-expiration-days: 1
     rotate-refresh-tokens: true
     blacklist-after-rotation: true
     header-prefix: Bearer
-
   encryption:
-    field-key: ${FIELD_ENCRYPTION_KEY}
+    field-key: ${FIELD_ENCRYPTION_KEY:some-default-key}
 
-#cors:
-#  allowed-origins:
-#    - http://localhost:3000
-#    - http://127.0.0.1:3000
+cors:
+  allowed-origins:
+    - http://localhost:3000
+    - http://127.0.0.1:3000

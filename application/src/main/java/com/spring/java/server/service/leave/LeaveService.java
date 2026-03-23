@@ -34,7 +34,7 @@ public class LeaveService {
     private final UserTeamService teamService;
 
     // Apply Leave
-    public UserLeaveResponseDTO applyLeave(User user, UserLeaveRequestDTO dto) {
+    public UserLeaveResponseDTO applyLeave(UserEntity user, UserLeaveRequestDTO dto) {
 
         UserLeaveRequestEntity leave = UserLeaveRequestEntity.builder()
                 .user(user)
@@ -90,10 +90,10 @@ public class LeaveService {
     }
 
     // Approve / Decline
-    public String processLeaveApproval(User approver, Long leaveId, String action) {
+    public String processLeaveApproval(UserEntity approver, Long leaveId, String action) {
 
         if (approver.getRole() != UserRole.ADMIN &&
-            approver.getRole() != UserRole.TEAM_LEAD) {
+                approver.getRole() != UserRole.TEAM_LEAD) {
 
             throw new RuntimeException("Permission denied");
         }
@@ -156,17 +156,19 @@ public class LeaveService {
 //            user = requester;
 //        }
 
-        int year = LocalDate.now().getYear();
+            int year = LocalDate.now().getYear();
 
-        UserLeavesRecordEntity record =
-                leaveRecordRepository.findByUserAndYear(user, year)
-                        .orElseGet(() -> UserLeavesRecordEntity.builder()
-                                .user(user)
-                                .year(year)
-                                .paidLeaves(12.0)
-                                .sickLeaves(5.0)
-                                .build());
+            UserLeavesRecordEntity record =
+                    leaveRecordRepository.findByUserAndYear(user, year)
+                            .orElseGet(() -> UserLeavesRecordEntity.builder()
+                                    .user(user)
+                                    .year(year)
+                                    .paidLeaves(12.0)
+                                    .sickLeaves(5.0)
+                                    .build());
 
-        return record;
+            return record;
+        }
+        return null;
     }
 }
